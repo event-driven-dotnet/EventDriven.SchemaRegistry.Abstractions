@@ -1,8 +1,8 @@
-namespace EventDriven.SchemaRegistry.Abstractions.Tests.Expected.Json.v1
+namespace EventDriven.SchemaRegistry.Abstractions.Tests.Schemas.Json.v1
 {
     public static class Person
     {
-        public const string Schema = @"{
+        public const string Expected = @"{
   ""$id"": ""Person"",
   ""type"": ""object"",
   ""properties"": {

@@ -23,7 +23,7 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
 
             // Act
             schemaValidator.ValidateSchema(json, 
-                Expected.Json.v1.Person.Schema, out var errorMessages);
+                Schemas.Json.v1.Person.Expected, out var errorMessages);
 
             // Assert
             Assert.Empty(errorMessages);
