@@ -14,22 +14,25 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests.Fakes
                 : Task.FromResult<string>(null);
         }
 
-        public Task AddSchema(string topic, string schema)
+        public Task<bool> AddSchema(string topic, string schema)
         {
-            _registry.Add(topic, schema);
-            return Task.CompletedTask;
+            if (_registry.ContainsKey(topic)) return Task.FromResult(false);
+            var result = _registry.TryAdd(topic, schema);
+            return Task.FromResult(result);
         }
 
-        public Task UpdateSchema(string topic, string schema)
+        public Task<bool> UpdateSchema(string topic, string schema)
         {
+            if (!_registry.ContainsKey(topic)) return Task.FromResult(false);
             _registry[topic] = schema;
-            return Task.CompletedTask;
+            return Task.FromResult(true);
         }
 
-        public Task RemoveSchema(string topic)
+        public Task<bool> RemoveSchema(string topic)
         {
-            _registry.Remove(topic);
-            return Task.CompletedTask;
+            if (!_registry.ContainsKey(topic)) return Task.FromResult(false);
+            var result = _registry.Remove(topic);
+            return Task.FromResult(result);
         }
     }
 }

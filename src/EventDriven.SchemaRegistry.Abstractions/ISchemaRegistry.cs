@@ -19,22 +19,22 @@ namespace EventDriven.SchemaRegistry.Abstractions
         /// </summary>
         /// <param name="topic">Fully qualified topic name</param>
         /// <param name="schema">Schema to add to the registry.</param>
-        /// <returns>Task that will complete when the operation has completed.</returns>
-        Task AddSchema(string topic, string schema);
+        /// <returns>True if add was successful with task that will complete when the operation has completed.</returns>
+        Task<bool> AddSchema(string topic, string schema);
 
         /// <summary>
         /// Replace schema registered to specified topic.
         /// </summary>
         /// <param name="topic">Fully qualified topic name</param>
         /// <param name="schema">Schema to add to the registry.</param>
-        /// <returns>Task that will complete when the operation has completed.</returns>
-        Task UpdateSchema(string topic, string schema);
+        /// <returns>True if update was successful with task that will complete when the operation has completed.</returns>
+        Task<bool> UpdateSchema(string topic, string schema);
 
         /// <summary>
         /// Remove schema registered to specified topic.
         /// </summary>
         /// <param name="topic">Fully qualified topic name</param>
-        /// <returns>Task that will complete when the operation has completed.</returns>
-        Task RemoveSchema(string topic);
+        /// <returns>True if remove was successful with task that will complete when the operation has completed.</returns>
+        Task<bool> RemoveSchema(string topic);
     }
 }

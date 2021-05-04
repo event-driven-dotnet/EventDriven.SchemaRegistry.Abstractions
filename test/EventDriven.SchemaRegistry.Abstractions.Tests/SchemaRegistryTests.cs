@@ -30,9 +30,10 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
 
             // Act
             var topic = $"v1.{nameof(Person)}";
-            await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
+            var result = await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
 
             // Assert
+            Assert.True(result);
             var schema = await schemaRegistry.GetSchema(topic);
             Assert.Equal(Schemas.Json.v1.Person.Expected, schema);
         }
@@ -46,9 +47,10 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
             await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
 
             // Act
-            await schemaRegistry.UpdateSchema(topic, Schemas.Json.v2.Person.Expected);
+            var result = await schemaRegistry.UpdateSchema(topic, Schemas.Json.v2.Person.Expected);
 
             // Assert
+            Assert.True(result);
             var schema = await schemaRegistry.GetSchema(topic);
             Assert.Equal(Schemas.Json.v2.Person.Expected, schema);
         }
@@ -62,9 +64,10 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
             await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
 
             // Act
-            await schemaRegistry.RemoveSchema(topic);
+            var result = await schemaRegistry.RemoveSchema(topic);
 
             // Assert
+            Assert.True(result);
             var schema = await schemaRegistry.GetSchema(topic);
             Assert.Null(schema);
         }
