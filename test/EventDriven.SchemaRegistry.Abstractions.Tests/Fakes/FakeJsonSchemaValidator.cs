@@ -6,11 +6,11 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests.Fakes
 {
     public class FakeJsonSchemaValidator : ISchemaValidator
     {
-        public void ValidateSchema(string message, string schema, out IList<string> errorMessages)
+        public bool ValidateMessage(string message, string schema, out IList<string> errorMessages)
         {
             var jObject = JObject.Parse(message);
             var jSchema = JSchema.Parse(schema);
-            jObject.IsValid(jSchema, out errorMessages);
+            return jObject.IsValid(jSchema, out errorMessages);
         }
     }
 }

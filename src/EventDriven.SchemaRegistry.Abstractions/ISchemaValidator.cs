@@ -13,6 +13,7 @@ namespace EventDriven.SchemaRegistry.Abstractions
         /// <param name="message">Message to validate against supplied schema.</param>
         /// <param name="schema">Schema for validating message.</param>
         /// <param name="errorMessages">Error messages generated while validating.</param>
-        void ValidateSchema(string message, string schema, out IList<string> errorMessages);
+        /// <returns>True if message validation succeeds, otherwise false.</returns>
+        bool ValidateMessage(string message, string schema, out IList<string> errorMessages);
     }
 }

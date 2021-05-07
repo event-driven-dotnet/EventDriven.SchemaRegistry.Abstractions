@@ -22,10 +22,11 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
             var json = JsonConvert.SerializeObject(person, settings);
 
             // Act
-            schemaValidator.ValidateSchema(json, 
+            var result = schemaValidator.ValidateMessage(json, 
                 Schemas.Json.v1.Person.Expected, out var errorMessages);
 
             // Assert
+            Assert.True(result);
             Assert.Empty(errorMessages);
         }
     }
