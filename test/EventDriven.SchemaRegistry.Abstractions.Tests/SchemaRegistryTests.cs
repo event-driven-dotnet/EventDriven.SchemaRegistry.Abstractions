@@ -13,13 +13,18 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
             // Arrange
             var schemaRegistry = new FakeJsonSchemaRegistry();
             var topic = $"v1.{nameof(Person)}";
-            await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
+            await schemaRegistry.AddSchema(new Schema
+            {
+                Topic =  topic,
+                Content = Schemas.Json.v1.Person.Expected
+            });
 
             // Act
             var schema = await schemaRegistry.GetSchema(topic);
 
             // Assert
-            Assert.Equal(Schemas.Json.v1.Person.Expected, schema);
+            Assert.Equal(topic, schema.Topic);
+            Assert.Equal(Schemas.Json.v1.Person.Expected, schema.Content);
         }
         
         [Fact]
@@ -30,12 +35,17 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
 
             // Act
             var topic = $"v1.{nameof(Person)}";
-            var result = await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
+            var result = await schemaRegistry.AddSchema(new Schema
+            {
+                Topic =  topic,
+                Content = Schemas.Json.v1.Person.Expected
+            });
 
             // Assert
             Assert.True(result);
             var schema = await schemaRegistry.GetSchema(topic);
-            Assert.Equal(Schemas.Json.v1.Person.Expected, schema);
+            Assert.Equal(topic, schema.Topic);
+            Assert.Equal(Schemas.Json.v1.Person.Expected, schema.Content);
         }
         
         [Fact]
@@ -44,15 +54,24 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
             // Arrange
             var schemaRegistry = new FakeJsonSchemaRegistry();
             var topic = $"v1.{nameof(Person)}";
-            await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
+            await schemaRegistry.AddSchema(new Schema
+            {
+                Topic =  topic,
+                Content = Schemas.Json.v1.Person.Expected
+            });
 
             // Act
-            var result = await schemaRegistry.UpdateSchema(topic, Schemas.Json.v2.Person.Expected);
+            var result = await schemaRegistry.UpdateSchema(new Schema
+            {
+                Topic =  topic,
+                Content = Schemas.Json.v2.Person.Expected
+            });
 
             // Assert
             Assert.True(result);
             var schema = await schemaRegistry.GetSchema(topic);
-            Assert.Equal(Schemas.Json.v2.Person.Expected, schema);
+            Assert.Equal(topic, schema.Topic);
+            Assert.Equal(Schemas.Json.v2.Person.Expected, schema.Content);
         }
         
         [Fact]
@@ -61,7 +80,11 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests
             // Arrange
             var schemaRegistry = new FakeJsonSchemaRegistry();
             var topic = $"v1.{nameof(Person)}";
-            await schemaRegistry.AddSchema(topic, Schemas.Json.v1.Person.Expected);
+            await schemaRegistry.AddSchema(new Schema
+            {
+                Topic =  topic,
+                Content = Schemas.Json.v1.Person.Expected
+            });
 
             // Act
             var result = await schemaRegistry.RemoveSchema(topic);
