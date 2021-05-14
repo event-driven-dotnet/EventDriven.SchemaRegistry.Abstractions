@@ -5,26 +5,26 @@ namespace EventDriven.SchemaRegistry.Abstractions.Tests.Fakes
 {
     public class FakeJsonSchemaRegistry : ISchemaRegistry
     {
-        private readonly Dictionary<string, string> _registry = new();
+        private readonly Dictionary<string, Schema> _registry = new();
 
-        public Task<string> GetSchema(string topic)
+        public Task<Schema> GetSchema(string topic)
         {
             return _registry.TryGetValue(topic, out var value)
                 ? Task.FromResult(value)
-                : Task.FromResult<string>(null);
+                : Task.FromResult<Schema>(null);
         }
 
-        public Task<bool> AddSchema(string topic, string schema)
+        public Task<bool> AddSchema(Schema schema)
         {
-            if (_registry.ContainsKey(topic)) return Task.FromResult(false);
-            var result = _registry.TryAdd(topic, schema);
+            if (_registry.ContainsKey(schema.Topic)) return Task.FromResult(false);
+            var result = _registry.TryAdd(schema.Topic, schema);
             return Task.FromResult(result);
         }
 
-        public Task<bool> UpdateSchema(string topic, string schema)
+        public Task<bool> UpdateSchema(Schema schema)
         {
-            if (!_registry.ContainsKey(topic)) return Task.FromResult(false);
-            _registry[topic] = schema;
+            if (!_registry.ContainsKey(schema.Topic)) return Task.FromResult(false);
+            _registry[schema.Topic] = schema;
             return Task.FromResult(true);
         }
 
